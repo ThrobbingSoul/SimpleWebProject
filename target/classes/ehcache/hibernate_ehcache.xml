@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="Simple">
+   <defaultCache
+      maxElementsInMemory="1000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600"
+      overflowToDisk="false">
+    </defaultCache>
+
+   <cache name="org.e.simple.user.model.User"
+      maxElementsInMemory="2000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600"
+      overflowToDisk="false">
+    </cache>
+
+</ehcache>

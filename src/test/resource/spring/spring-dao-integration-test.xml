@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<!-- refer to spring/spring-config.xml and config.properties -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- 请定义自己测试时所需的 packagesToScan 所引用的 hibernateModelList ,可以参照 src/test/resource 中 org.e.simple.user.user-test.xml -->
+		<property name="packagesToScan" ref="hibernateModelList" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
+				<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
+
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config-test.properties</value>
+			</list>
+		</property>
+	</bean>
+</beans>
